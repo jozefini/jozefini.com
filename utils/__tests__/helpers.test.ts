@@ -1,4 +1,4 @@
-import { cn, replacer } from '@utils/helpers'
+import { cn, strReplacer } from '$utils/helpers'
 
 describe('cn function', () => {
 	test('should concatenate strings with spaces', () => {
@@ -14,18 +14,18 @@ describe('cn function', () => {
 	})
 })
 
-describe('replacer function', () => {
+describe('strReplacer function', () => {
 	test('should replace shortcodes in a string', () => {
-		expect(replacer('Hello {{name}}', { name: 'world' })).toBe('Hello world')
+		expect(strReplacer('Hello {{name}}', { name: 'world' })).toBe('Hello world')
 	})
 
 	test('should replace multiple shortcodes in a string', () => {
 		expect(
-			replacer('Hello {{name}}, my name is {{myName}}', { name: 'world', myName: 'John' }),
+			strReplacer('Hello {{name}}, my name is {{myName}}', { name: 'world', myName: 'John' }),
 		).toBe('Hello world, my name is John')
 	})
 
 	test('should ignore shortcodes that are not provided', () => {
-		expect(replacer('Hello {{name}}', {})).toBe('Hello {{name}}')
+		expect(strReplacer('Hello {{name}}', {})).toBe('Hello {{name}}')
 	})
 })
