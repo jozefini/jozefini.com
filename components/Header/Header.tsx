@@ -8,6 +8,8 @@ const css = {
 }
 
 export function Header() {
+	const header // intentionally
+
 	return (
 		<header className={css.wrapper}>
 			<div className={css.inner}>
