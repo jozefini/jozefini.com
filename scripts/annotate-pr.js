@@ -1,6 +1,6 @@
 const fs = require('fs')
 const { Octokit } = require('@octokit/rest')
-const fetch = require('node-fetch')
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args))
 
 // Read the linter report file
 const report = JSON.parse(fs.readFileSync('eslint-report.json', 'utf8'))
