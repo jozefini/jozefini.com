@@ -15,7 +15,7 @@ jobs:
           node-version: 16 # Update the Node.js version to v16
 
       - name: Install pnpm
-        run: curl -f https://get.pnpm.io/v6.7.js | node - add --global pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
