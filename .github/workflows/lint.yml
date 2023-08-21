@@ -24,7 +24,7 @@ jobs:
         run: pnpm run lint
 
       - name: Generate ESLint report
-        run: pnpm run lint -- --format json --output-file eslint-report.json
+        run: npx eslint . --format json --output-file eslint-report.json
 
       - name: Annotate PR
         if: github.event_name == 'pull_request'
