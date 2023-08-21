@@ -1,5 +1,6 @@
 const fs = require('fs')
 const { Octokit } = require('@octokit/rest')
+const fetch = require('node-fetch')
 
 // Read the linter report file
 const report = JSON.parse(fs.readFileSync('eslint-report.json', 'utf8'))
@@ -11,7 +12,12 @@ const warnings = report.map(
 const message = `## Linter Warnings\n\n${warnings.join('\n')}`
 
 // Create an annotation on the pull request
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
+const octokit = new Octokit({
+	auth: process.env.GITHUB_TOKEN,
+	request: {
+		fetch,
+	},
+})
 octokit.checks.create({
 	owner: process.env.GITHUB_REPOSITORY_OWNER,
 	repo: process.env.GITHUB_REPOSITORY,
