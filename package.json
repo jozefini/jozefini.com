@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"format": "npx prettier --write . --ignore-path .gitignore",
-		"lint": "next lint -- --ignore-path .gitignore --ignore-pattern scripts/",
+		"lint": "next lint -- --ignore-path .gitignore",
 		"lint:fix": "pnpm format && pnpm lint -- --fix",
 		"test": "jest",
 		"test:watch": "jest --watch",
