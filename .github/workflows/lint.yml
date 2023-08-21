@@ -25,13 +25,3 @@ jobs:
 
       - name: Run Next.js lint
         run: pnpm run lint | head -n 10
-
-      - name: Leave PR comment if lint fails
-        if: ${{ failure() }}
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const issue_number = context.payload.pull_request.number;
-            const repository = context.payload.repository.full_name;
-            const comment = "Linting failed. Please check the logs for more details.";
-            github.rest.issues.createComment({ issue_number, repository, body: comment });
