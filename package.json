@@ -1,16 +1,17 @@
 {
-	"name": "my-app",
-	"version": "0.1.0",
+	"name": "jozefini",
+	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
 		"format": "npx prettier --write . --ignore-path .gitignore",
-		"lint": "next lint -- --ignore-path .gitignore",
+		"lint": "next lint -- --ignore-path .gitignore --max-warnings=0",
 		"lint:fix": "pnpm format && pnpm lint -- --fix",
 		"test": "jest",
-		"test:watch": "jest --watch"
+		"test:watch": "jest --watch",
+		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@tailwindcss/typography": "^0.5.9",

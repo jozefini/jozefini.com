@@ -11,6 +11,7 @@ const css = {
 
 export function Brand() {
 	const ref = useRef(null)
+
 	return (
 		<div className={css.wrapper}>
 			<Link href='/' className={css.link}>
