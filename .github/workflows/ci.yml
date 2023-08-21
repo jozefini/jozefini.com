@@ -14,13 +14,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2 # Update to use the latest version of the action
+      - uses: actions/checkout@v2
       - name: Install pnpm
         run: npm install -g pnpm
-      - uses: actions/setup-node@v2 # Update to use the latest version of the action
+      - uses: actions/setup-node@v2
         with:
           node-version: lts/*
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm run type-check
-      - run: pnpm run lint -- --max-warnings 0
+      - run: pnpm run lint -- --max-warnings=0
