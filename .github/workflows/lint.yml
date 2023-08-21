@@ -23,6 +23,9 @@ jobs:
       - name: Run linter
         run: pnpm run lint
 
+      - name: Generate ESLint report
+        run: pnpm run eslint -- --format json --output-file eslint-report.json
+
       - name: Annotate PR
         if: github.event_name == 'pull_request'
         run: node scripts/annotate-pr.js # Update the path to the custom script
