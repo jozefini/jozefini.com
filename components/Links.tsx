@@ -3,7 +3,7 @@
 import { ComponentProps, HTMLProps, PropsWithChildren } from 'react'
 
 import Link from 'next/link'
-import { cn } from '$utils/helpers'
+import { cn } from '$services/utils/helpers'
 import { usePathname } from 'next/navigation'
 
 export function NavLink({

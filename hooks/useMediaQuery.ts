@@ -1,4 +1,4 @@
-import { off, on } from '$utils/events'
+import { off, on } from '$services/utils/events'
 import { useEffect, useState } from 'react'
 
 const breakpoint = 768

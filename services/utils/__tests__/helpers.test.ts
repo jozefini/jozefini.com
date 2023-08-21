@@ -1,4 +1,4 @@
-import { cn, strReplacer } from '$utils/helpers'
+import { cn, strReplacer } from '@/services/utils/helpers'
 
 describe('cn function', () => {
 	test('should concatenate strings with spaces', () => {
