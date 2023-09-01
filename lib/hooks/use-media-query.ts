@@ -42,7 +42,7 @@ export function useMediaQuery(props: Props = {}): MediaQuery {
 		return () => {
 			off(matchDesktop, 'change', watchForChanges)
 		}
-	}, [])
+	}, [mobile, desktop])
 
 	return mediaQuery
 }
