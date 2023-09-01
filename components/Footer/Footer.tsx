@@ -1,6 +1,6 @@
-import { Brand } from './Brand'
-import { Copyright } from './Copyright'
-import { SocialLinks } from './SocialLinks'
+import { Brand } from './brand'
+import { Copyright } from './copyright'
+import { SocialLinks } from './social-links'
 
 const css = {
 	wrapper: '',
