@@ -1,6 +1,6 @@
-import { Avatar } from './components/Avatar'
-import Logo from '@/assets/icons/logo.svg'
-import { SocialLinks } from './components/SocialLinks'
+import { Avatar } from './components/avatar'
+import Logo from '$/assets/icons/logo.svg'
+import { SocialLinks } from './components/social-links'
 
 const css = {
 	wrapper: 'bg-body fixed inset-0 flex justify-center items-center text-[#fffedc]',
