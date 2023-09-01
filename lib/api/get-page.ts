@@ -1,21 +1,24 @@
-const getHome = async () =>
+const getHome = async (): Promise<{ title: string; description: string }> =>
 	new Promise((resolve) =>
 		resolve({
-			title: 'Home',
+			title: 'Home - Jozefin B.',
+			description: 'Portfolio of Jozefin B.',
 		}),
 	)
 
-const getAbout = async () =>
+const getAbout = async (): Promise<{ title: string; description: string }> =>
 	new Promise((resolve) =>
 		resolve({
-			title: 'About',
+			title: 'About - Jozefin B.',
+			description: 'About Jozefin B.',
 		}),
 	)
 
-const get404 = async () =>
+const get404 = async (): Promise<{ title: string; description: string }> =>
 	new Promise((resolve) =>
 		resolve({
-			title: '404',
+			title: 'Not found - Jozefin B.',
+			description: 'Page not found',
 		}),
 	)
 
