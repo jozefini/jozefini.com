@@ -1,6 +1,6 @@
-import { Actions } from './Actions'
-import { Brand } from './Brand'
-import { Nav } from './Nav'
+import { Actions } from './actions'
+import { Brand } from './brand'
+import { Nav } from './nav'
 
 const css = {
 	wrapper: '',
