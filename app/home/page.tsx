@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getPage } from '$/lib/api'
+import { getPage } from '@/lib/api'
 
 export async function generateMetadata(): Promise<Metadata> {
 	const { title, description } = await getPage({ page: 'home' })
