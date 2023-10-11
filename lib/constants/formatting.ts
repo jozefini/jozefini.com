@@ -1,2 +1,4 @@
-export const REPLACER_PREFIX = '{{'
-export const REPLACER_SUFFIX = '}}'
+export const REPLACER = {
+	prefix: '{{',
+	suffix: '}}',
+}
