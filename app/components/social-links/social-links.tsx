@@ -1,7 +1,7 @@
-import { ExternalLink } from '$/components/link'
-import GithubIcon from '$/assets/icons/social-github.svg'
-import InIcon from '$/assets/icons/social-in.svg'
-import XIcon from '$/assets/icons/social-x.svg'
+import { ExternalLink } from '@/components/external-link'
+import GithubIcon from '@/assets/icons/social-github.svg'
+import InIcon from '@/assets/icons/social-in.svg'
+import XIcon from '@/assets/icons/social-x.svg'
 
 const css = {
 	wrapper: 'flex justify-center items-center gap-x-10',
