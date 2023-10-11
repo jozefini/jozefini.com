@@ -25,7 +25,7 @@ export function DateInput({ name, relationships }: { name: string; relationships
 		if (hasAnyKey(errors, relationships as any)) {
 			trigger(relationships)
 		}
-	}, [value])
+	}, [value]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
