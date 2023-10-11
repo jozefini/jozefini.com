@@ -1,5 +1,5 @@
 import { Avatar } from './components/avatar'
-import Logo from '$/assets/icons/logo.svg'
+import Logo from '@/assets/icons/logo.svg'
 import { SocialLinks } from './components/social-links'
 
 const css = {

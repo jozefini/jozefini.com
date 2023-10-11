@@ -1,4 +1,4 @@
-import { ElementEvent } from '$/lib/types'
+import { ElementEvent } from '@/lib/types'
 
 // Register an event listener on an element
 export const on: ElementEvent = (el, event, handler) => {
