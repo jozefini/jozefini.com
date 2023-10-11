@@ -1,21 +1,13 @@
-import '$/assets/styles/index.css'
+import '@/assets/styles/index.css'
 
-// import { Footer } from '$/components/footer'
-// import { Header } from '$/components/header'
+// import { Footer } from '@/components/footer'
+// import { Header } from '@/components/header'
 import { Inter } from 'next/font/google'
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
-import { getPage } from '$/lib/api'
+import { getPage } from '@/lib/api'
 
 const inter = Inter({ subsets: ['latin'] })
-
-export async function generateMetadata(): Promise<Metadata> {
-	const { title, description } = await getPage({ page: 'home' })
-	return {
-		title,
-		description,
-	}
-}
 
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
@@ -27,4 +19,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 			</body>
 		</html>
 	)
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+	const { title, description } = await getPage({ page: 'home' })
+	return {
+		title,
+		description,
+	}
 }

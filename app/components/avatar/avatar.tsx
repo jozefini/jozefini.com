@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import avatarUrl from '$/assets/images/avatar.jpg'
+import avatarUrl from '@/assets/images/avatar.jpg'
 
 const css = {
 	wrapper: 'relative',

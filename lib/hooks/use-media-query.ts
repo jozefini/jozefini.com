@@ -1,5 +1,5 @@
-import { off, on } from '$/lib/utils'
 import { useEffect, useState } from 'react'
+import { off, on } from '@/lib/utils'
 
 const breakpoint = 768
 
