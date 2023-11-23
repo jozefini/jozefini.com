@@ -26,8 +26,10 @@ jobs:
       - name: check if workflows needs prettier
         run: npx prettier --cache --check ".github/workflows/**/*.yml" || (echo "An action can't make changes to actions, you'll have to run prettier manually" && exit 1)
       - run: npx prettier --ignore-path .gitignore pnpm-lock.yaml --cache --write .
-      - uses: EndBug/add-and-commit@v9 # Update to use the latest version of the action
-        with:
-          default_author: github_actions
-          commit: --no-verify
-          message: '✨ Prettier formatted ✨'
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github_actions'
+          git config --global user.email 'github_actions@github.com'
+          git add -A
+          git commit -m '✨ Prettier formatted ✨' || echo "No changes to commit"
+          git push origin HEAD:${{ github.head_ref }}
