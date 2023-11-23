@@ -14,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2 # Update to use the latest version of the action
-      - name: Install bun
-        run: curl -LSfs https://raw.githubusercontent.com/tophat/bun/master/scripts/download.sh | bash
+      - name: Install pnpm
+        run: npm install -g pnpm
       - uses: actions/setup-node@v2 # Update to use the latest version of the action
         with:
           node-version: lts/*
-      - run: bun install --ignore-scripts --only=dev
+      - run: pnpm install --ignore-scripts --only=dev
       - name: check if workflows needs prettier
         run: npx prettier --cache --check ".github/workflows/**/*.yml" || (echo "An action can't make changes to actions, you'll have to run prettier manually" && exit 1)
       - run: npx prettier --ignore-path .gitignore pnpm-lock.yaml --cache --write .
