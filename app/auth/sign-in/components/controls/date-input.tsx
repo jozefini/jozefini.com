@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { cn, hasAnyKey, hasLength, hasValue } from '@/lib/utils'
+import { cn, hasAnyKey, hasLength } from '@/lib/utils'
 
 import { FieldContext } from '@/app/auth/sign-in/ui'
 

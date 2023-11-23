@@ -1,4 +1,4 @@
-import { object, string, Output, isoDate } from 'valibot'
+import { object, string, Output, isoDate, Issue } from 'valibot'
 
 const messages = {
 	requiredDate: 'Date is required',
@@ -14,6 +14,17 @@ const isAfter = (date1: string, date2: string): boolean => {
 	return d1.getTime() > d2.getTime()
 }
 
+const createIssue = (
+	input: any,
+	key: string,
+	message: string,
+): Pick<Issue, 'validation' | 'message' | 'input' | 'path'> => ({
+	validation: 'custom',
+	message,
+	input,
+	path: [{ schema: 'object', input: input, key: key, value: input[key] }],
+})
+
 export const signInSchema = object(
 	{
 		startDate: string([isoDate(messages.requiredDate)]),
@@ -24,18 +35,8 @@ export const signInSchema = object(
 			if (isAfter(input.startDate, input.endDate)) {
 				return {
 					issues: [
-						{
-							validation: 'custom',
-							message: messages.wrongEndDate,
-							input,
-							path: [{ schema: 'object', input: input, key: 'endDate', value: input.endDate }],
-						},
-						{
-							validation: 'custom',
-							message: messages.wrongStartDate,
-							input,
-							path: [{ schema: 'object', input: input, key: 'startDate', value: input.startDate }],
-						},
+						createIssue(input, 'startDate', messages.wrongStartDate),
+						createIssue(input, 'endDate', messages.wrongEndDate),
 					],
 				}
 			}
