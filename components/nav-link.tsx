@@ -7,18 +7,26 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 export function NavLink({
-	activeClass,
-	defaultClass,
-	exact,
-	...props
+  activeClass,
+  defaultClass,
+  className,
+  exact,
+  ...props
 }: PropsWithChildren<ComponentProps<typeof Link>> & {
-	activeClass?: string
-	defaultClass?: string
-	exact?: boolean
+  activeClass?: string
+  defaultClass?: string
+  exact?: boolean
 }) {
-	const pathname = usePathname()
-	const isExact = exact ?? props.href === '/'
-	const isActive = isExact ? pathname === props.href : pathname.startsWith(props.href as string)
+  const pathname = usePathname()
+  const isExact = exact ?? props.href === '/'
+  const isActive = isExact
+    ? pathname === props.href
+    : pathname.startsWith(props.href as string)
 
-	return <Link className={cn(props.className, isActive ? activeClass : defaultClass)} {...props} />
+  return (
+    <Link
+      className={cn(className, isActive ? activeClass : defaultClass)}
+      {...props}
+    />
+  )
 }
