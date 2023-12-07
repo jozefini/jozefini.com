@@ -9,7 +9,7 @@ import {
 
 const css = {
   nav: 'grow',
-  list: 'flex flex-col gap-1.5',
+  list: 'flex flex-col gap-1',
 }
 
 export function SideNav() {
