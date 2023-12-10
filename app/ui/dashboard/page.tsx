@@ -1,5 +1,5 @@
 import { Headline } from './components/headline'
-import { ContentWrapper } from './components/ui/layout'
+import { ContentWrapper } from './components/ui/layouts'
 
 export default function Page() {
   return (

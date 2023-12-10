@@ -6,7 +6,7 @@ import {
   DashboardWrapper,
   MainWrapper,
   SidebarWrapper,
-} from './components/ui/layout'
+} from './components/ui/layouts'
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
