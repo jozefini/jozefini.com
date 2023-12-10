@@ -5,7 +5,7 @@ export default {
   content: [
     './app/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
-    './content/**/*.mdx',
+    './ui/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
