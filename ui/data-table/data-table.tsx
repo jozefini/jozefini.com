@@ -3,18 +3,20 @@
 import { Table } from '@/ui/table'
 import { DataTableBody } from './body'
 import { DataTableHead } from './head'
-import { DataTableContext } from './lib/context'
-import { DataTable } from './lib/types'
+import { useDataTable } from './index'
 
-export function DataTable(props: DataTable) {
+export function DataTable() {
+  const ctx = useDataTable()
+  if (!ctx) {
+    return null
+  }
+
   return (
-    <div className="rounded-md border grid">
-      <DataTableContext.Provider value={props}>
-        <Table>
-          <DataTableHead />
-          <DataTableBody />
-        </Table>
-      </DataTableContext.Provider>
+    <div className="rounded-md w-full border grid">
+      <Table>
+        <DataTableHead />
+        <DataTableBody />
+      </Table>
     </div>
   )
 }

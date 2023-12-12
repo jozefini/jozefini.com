@@ -1,10 +1,13 @@
 import { useMemo } from 'react'
-import { useDataTable } from './lib/hooks'
+import { useDataTable } from './index'
 import { DataTableColumn } from './lib/types'
 import { TableBody, TableCell, TableRow } from '../table'
 
 const DefaultCellRender = (props: { value: string }) => {
-  return <span>{props.value}</span>
+  if (typeof props.value === 'string' || typeof props.value === 'number') {
+    return <span>{props.value}</span>
+  }
+  return null // Can't render non-string values
 }
 
 const BodyCell = (props: { value: string; column: DataTableColumn }) => {
