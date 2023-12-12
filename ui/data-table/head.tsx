@@ -5,21 +5,99 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/ui/dropdown-menu'
-import { useDataTable } from './lib/hooks'
+import { useDataTable } from './index'
 import { DataTableColumn } from './lib/types'
-import { AscIcon, DescIcon, SortIcon } from './icons'
+import {
+  AscIcon,
+  DescIcon,
+  HideIcon,
+  MoveBeforeIcon,
+  MoveAfterIcon,
+  SortIcon,
+} from './icons'
+import { DropdownMenuSeparator } from '@radix-ui/react-dropdown-menu'
+import { useMemo } from 'react'
+
+const styles = {
+  separator: 'mx-1 my-1 h-px bg-black/5',
+}
 
 const Cell = (props: DataTableColumn) => {
-  const { isRtl } = useDataTable()
-  const { sortable, label } = props
+  const { dir, columns, setColumns, setFilters } = useDataTable()
+  const { sortable, orderable, hideable, label } = props
   if (!label) {
     return null
   }
 
+  const swapWithOrderable = (currentIndex: number, direction: 1 | -1) => {
+    let targetIndex = currentIndex + direction
+    const boundary = direction === -1 ? 0 : columns.length - 1
+
+    while (targetIndex !== boundary && !columns[targetIndex].orderable) {
+      targetIndex += direction
+    }
+
+    if (columns[targetIndex].orderable) {
+      const newColumns = [...columns]
+      const temp = newColumns[currentIndex]
+      newColumns[currentIndex] = newColumns[targetIndex]
+      newColumns[targetIndex] = temp
+      setColumns(newColumns)
+    }
+  }
+
+  const handleMoveBefore = () => {
+    const currentIndex = columns.findIndex(column => column.id === props.id)
+    swapWithOrderable(currentIndex, -1) // Move before
+  }
+
+  const handleMoveAfter = () => {
+    const currentIndex = columns.findIndex(column => column.id === props.id)
+    swapWithOrderable(currentIndex, 1) // Move after
+  }
+
+  const hideColumn = () => {
+    setFilters(filters => {
+      let _filters = filters || {}
+      let hiddenColumns = _filters.hiddenColumns || []
+      if (!hiddenColumns.includes(props.id)) {
+        hiddenColumns.push(props.id)
+      }
+
+      return {
+        ..._filters,
+        hiddenColumns,
+      }
+    })
+  }
+
+  const { hasDrop, prevOrderColumn, nextOrderColumn, hasOrdering } =
+    useMemo(() => {
+      // Has next column with orderable=true
+      let prevOrderColumn = null
+      let nextOrderColumn = null
+      let currentIndex = columns.findIndex(column => column.id === props.id)
+      for (let i = 0; i < columns.length; i++) {
+        const column = columns[i]
+        if (column.orderable && i < currentIndex) {
+          prevOrderColumn = true
+        }
+        if (column.orderable && i > currentIndex) {
+          nextOrderColumn = true
+          break
+        }
+      }
+
+      const hasOrdering = orderable && (nextOrderColumn || prevOrderColumn)
+      const hasDrop = sortable || hasOrdering || hideable
+
+      return { hasDrop, prevOrderColumn, nextOrderColumn, hasOrdering }
+    }, [props])
+
   return (
     <div className="flex items-center space-x-2">
-      {sortable ? (
-        <DropdownMenu dir={isRtl ? 'rtl' : 'ltr'}>
+      {hasDrop ? (
+        <DropdownMenu dir={dir ?? 'rtl'}>
           <DropdownMenuTrigger asChild>
             <button
               type="button"
@@ -30,14 +108,48 @@ const Cell = (props: DataTableColumn) => {
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
-            <DropdownMenuItem>
-              <AscIcon />
-              Asc
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <DescIcon />
-              Desc
-            </DropdownMenuItem>
+            {sortable && (
+              <>
+                <DropdownMenuItem>
+                  <AscIcon />
+                  Asc
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <DescIcon />
+                  Desc
+                </DropdownMenuItem>
+              </>
+            )}
+            {hasOrdering && (
+              <>
+                {sortable ? (
+                  <DropdownMenuSeparator className={styles.separator} />
+                ) : null}
+                {prevOrderColumn && (
+                  <DropdownMenuItem onClick={handleMoveBefore}>
+                    <MoveBeforeIcon />
+                    Before
+                  </DropdownMenuItem>
+                )}
+                {nextOrderColumn && (
+                  <DropdownMenuItem onClick={handleMoveAfter}>
+                    <MoveAfterIcon />
+                    After
+                  </DropdownMenuItem>
+                )}
+              </>
+            )}
+            {hideable && (
+              <>
+                {hideable || sortable ? (
+                  <DropdownMenuSeparator className={styles.separator} />
+                ) : null}
+                <DropdownMenuItem onClick={hideColumn}>
+                  <HideIcon />
+                  Hide
+                </DropdownMenuItem>
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (

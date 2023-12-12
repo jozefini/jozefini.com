@@ -1,29 +1,31 @@
-export type DataTable = {
+import { Dispatch, SetStateAction } from 'react'
+
+export type DataTableProps = {
   columns: DataTableColumn[]
   data: any[]
-  sortBy?: string
-  sortDirection?: 'asc' | 'desc'
-  order?: string[]
-  isRtl?: boolean
+  filters?: Partial<DataTableFilters>
+  onFiltersChange?: Dispatch<SetStateAction<DataTableFilters>>
+  dir?: 'ltr' | 'rtl'
 }
-export type DataTableRenderProps = {
+export type DataTableFilters = {
+  hiddenColumns: string[]
+  page: number
+  totalRows: number
+  sortDirection: 'asc' | 'desc'
+  sortBy: string
+  order: string[]
+}
+export type DataTableCellRenderProps = {
   value: any
   column: DataTableColumn
 }
-export type DataTableRender = React.ComponentType<DataTableRenderProps>
+export type DataTableCellRender = React.ComponentType<DataTableCellRenderProps>
 export type DataTableColumn = {
   id: string
   label?: string
   sortable?: boolean
-  render?: DataTableRender
-  colspan?: number
-}
-export type DataTableSort = {
-  sortBy: string
-  sortDirection: 'asc' | 'desc'
-}
-export type DataTablePagination = {
-  page: number
-  pageSize: number
-  total: number
+  orderable?: boolean
+  hideable?: boolean
+  render?: DataTableCellRender
+  className?: string
 }
