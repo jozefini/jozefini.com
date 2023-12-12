@@ -4,10 +4,10 @@ import { DataTableColumn } from './lib/types'
 import { TableBody, TableCell, TableRow } from '../table'
 
 const DefaultCellRender = (props: { value: string }) => {
-  if (typeof props.value !== 'string' || typeof props.value !== 'number') {
-    return null // Can't render non-string values
+  if (typeof props.value === 'string' || typeof props.value === 'number') {
+    return <span>{props.value}</span>
   }
-  return <span>{props.value}</span>
+  return null // Can't render non-string values
 }
 
 const BodyCell = (props: { value: string; column: DataTableColumn }) => {
