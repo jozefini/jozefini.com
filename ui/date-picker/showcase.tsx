@@ -10,12 +10,7 @@ export function Showcase() {
 
   return (
     <div className="flex justify-center pt-64 w-screen h-screen">
-      <Calendar
-        month={now}
-        selected={selected}
-        setSelected={setSelected}
-        isDateRange
-      />
+      <Calendar month={now} selected={selected} setSelected={setSelected} />
     </div>
   )
 }

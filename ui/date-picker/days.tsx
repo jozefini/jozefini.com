@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { useCalendar, useCalendarMonth } from './lib/hooks'
-import { cn, selectVariant } from '@/lib/utils'
+import { cn, firstTruthy } from '@/lib/utils'
 import { useMemo } from 'react'
 import { css } from './lib/styles'
 
@@ -72,7 +72,7 @@ export function CalendarDay({
       onClick={handleClick}
       className={cn(
         css.day.base,
-        selectVariant(
+        firstTruthy(
           isSelected && css.day.selected,
           isInRange && css.day.inRange,
           isToday && css.day.today,
@@ -168,13 +168,13 @@ function CalendarAllowedDays({ dayNumber }: { dayNumber: number }) {
   return (
     <div
       className={cn(
-        selectVariant(
+        firstTruthy(
           isOnlySelected && css.item.onlySelected,
           isStart && isEnd && css.item.onlySelected,
           isStart && css.item.startRange,
           isEnd && css.item.endRange
         ),
-        selectVariant(
+        firstTruthy(
           isSelected && css.item.inRange,
           isDateRange && inRange.includes(dayNumber) && css.item.inRange,
           css.item.default

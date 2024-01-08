@@ -4,6 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from '@/ui/dropdown-menu'
 import { useDataTable } from './index'
 import { DataTableColumn } from './lib/types'
@@ -15,19 +16,11 @@ import {
   MoveAfterIcon,
   SortIcon,
 } from './icons'
-import { DropdownMenuSeparator } from '@radix-ui/react-dropdown-menu'
 import { useMemo } from 'react'
-
-const styles = {
-  separator: 'mx-1 my-1 h-px bg-black/5',
-}
 
 const Cell = (props: DataTableColumn) => {
   const { dir, columns, setColumns, setFilters } = useDataTable()
   const { sortable, orderable, hideable, label } = props
-  if (!label) {
-    return null
-  }
 
   const swapWithOrderable = (currentIndex: number, direction: 1 | -1) => {
     let targetIndex = currentIndex + direction
@@ -92,7 +85,11 @@ const Cell = (props: DataTableColumn) => {
       const hasDrop = sortable || hasOrdering || hideable
 
       return { hasDrop, prevOrderColumn, nextOrderColumn, hasOrdering }
-    }, [props])
+    }, [props, columns, orderable, sortable, hideable])
+
+  if (!label) {
+    return null
+  }
 
   return (
     <div className="flex items-center space-x-2">
@@ -122,9 +119,7 @@ const Cell = (props: DataTableColumn) => {
             )}
             {hasOrdering && (
               <>
-                {sortable ? (
-                  <DropdownMenuSeparator className={styles.separator} />
-                ) : null}
+                {sortable ? <DropdownMenuSeparator /> : null}
                 {prevOrderColumn && (
                   <DropdownMenuItem onClick={handleMoveBefore}>
                     <MoveBeforeIcon />
