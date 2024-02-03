@@ -1,12 +1,23 @@
 'use client'
 
 import { Layer, Stage } from 'react-konva'
-import { Seat } from '@/seatmap/components/seat'
-import { Row } from './components/row'
+import { Row } from '@/seatmap/components/row'
+import { useSeatMapZoom } from '@/seatmap/hooks/use-seatmap-zoom'
 
 export function CreateSeatMap() {
+  const { scale, position, handleWheel } = useSeatMapZoom()
+
   return (
-    <Stage width={window.innerWidth} height={window.innerHeight}>
+    <Stage
+      width={window.innerWidth}
+      height={window.innerHeight}
+      scaleX={scale}
+      scaleY={scale}
+      x={position.x}
+      y={position.y}
+      onWheel={handleWheel}
+      draggable
+    >
       <Layer>
         <Row
           x={0}

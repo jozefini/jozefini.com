@@ -3,7 +3,13 @@ import { shallow } from 'zustand/shallow'
 import { immer } from 'zustand/middleware/immer'
 import { AreaOut, RowOut, SeatOut, SectionOut } from '@/seatmap/lib/schema'
 import { NestedPartial } from '@/seatmap/lib/types'
+import { Snapshot } from '@/seatmap/lib/enums'
 
+type SnapshotData = {
+  type: Snapshot
+  timestamp: number
+  data: string
+}
 type SeatMapStates = {
   selectedIds: Record<string, number>
 
@@ -11,9 +17,13 @@ type SeatMapStates = {
   sections: Record<string, SectionOut>
   rows: Record<string, RowOut>
   seats: Record<string, SeatOut>
+
+  history: SnapshotData[]
+  historyIndex: number
 }
 type SeatMapStore = SeatMapStates
 type SeatMapStoreSelector<T> = (state: SeatMapStore) => T
+type SeatMapEntity = 'areas' | 'sections' | 'rows' | 'seats'
 
 const initialState: SeatMapStates = {
   selectedIds: {},
@@ -22,14 +32,17 @@ const initialState: SeatMapStates = {
   sections: {},
   rows: {},
   seats: {},
+
+  history: [],
+  historyIndex: -1,
 } as const
 
 const seatMapStore = createWithEqualityFn(
-  immer<SeatMapStore>((set, get) => ({
+  immer<SeatMapStore>(set => ({
     ...initialState,
 
     updateEntity: (
-      entity: 'areas' | 'sections' | 'rows' | 'seats',
+      entity: SeatMapEntity,
       id: string,
       data: NestedPartial<AreaOut | SectionOut | RowOut | SeatOut>
     ) => {
@@ -40,6 +53,54 @@ const seatMapStore = createWithEqualityFn(
             ...data,
           } as any
         }
+      })
+    },
+
+    redoHistory: () => {
+      set(draft => {
+        if (draft.historyIndex < draft.history.length - 1) {
+          draft.historyIndex++
+          const { areas, sections, rows, seats } = JSON.parse(
+            draft.history[draft.historyIndex].data
+          )
+          draft.areas = areas
+          draft.sections = sections
+          draft.rows = rows
+          draft.seats = seats
+        }
+      })
+    },
+
+    undoHistory: () => {
+      set(draft => {
+        if (draft.historyIndex > 0) {
+          draft.historyIndex--
+          const { areas, sections, rows, seats } = JSON.parse(
+            draft.history[draft.historyIndex].data
+          )
+          draft.areas = areas
+          draft.sections = sections
+          draft.rows = rows
+          draft.seats = seats
+        }
+      })
+    },
+
+    makeSnapshot: (type: Snapshot) => {
+      set(draft => {
+        const data = JSON.stringify({
+          areas: draft.areas,
+          sections: draft.sections,
+          rows: draft.rows,
+          seats: draft.seats,
+        })
+        draft.historyIndex++
+        draft.history = draft.history.slice(0, draft.historyIndex)
+        draft.history.push({
+          type,
+          timestamp: Date.now(),
+          data,
+        })
       })
     },
 
