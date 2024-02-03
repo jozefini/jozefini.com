@@ -3,8 +3,13 @@
 import { Layer, Stage } from 'react-konva'
 import { Row } from '@/seatmap/components/row'
 import { useSeatMapZoom } from '@/seatmap/hooks/use-seatmap-zoom'
+import { memo } from 'react'
 
-export function CreateSeatMap() {
+// Create 50 seats in a row
+const seats = Array.from({ length: 100 }, (_, i) => i + 1)
+const rows = Array.from({ length: 100 }, (_, i) => i + 1)
+
+export const CreateSeatMap = memo(() => {
   const { scale, position, handleWheel } = useSeatMapZoom()
 
   return (
@@ -19,13 +24,11 @@ export function CreateSeatMap() {
       draggable
     >
       <Layer>
-        <Row
-          x={0}
-          y={0}
-          seatIds={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-          curveDegree={10}
-        />
+        {rows.map((row, i) => (
+          <Row key={row} x={0} y={i * 30} index={i} seatIds={seats} />
+        ))}
       </Layer>
     </Stage>
   )
-}
+})
+CreateSeatMap.displayName = 'CreateSeatMap'

@@ -1,8 +1,8 @@
 'use client'
 
-import React, { memo } from 'react'
 import { Circle, Text, Group } from 'react-konva'
 import { SEAT_INNER_SIZE, SEAT_STROKE_WIDTH } from '@/seatmap/lib/constants'
+import { memo } from 'react'
 
 type SeatProps = {
   x: number
