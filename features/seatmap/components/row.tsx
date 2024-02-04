@@ -3,6 +3,11 @@ import { Seat } from '@/seatmap/components/seat'
 import { ROW_GAP, ROW_OFFSET } from '../lib/constants'
 import { memo } from 'react'
 
+// Loop throught 10k
+for (let i = 0; i < 10000; i++) {
+  console.log(i)
+}
+
 const RowSeat = memo(
   ({
     index,

@@ -3,14 +3,33 @@
 import { Layer, Stage } from 'react-konva'
 import { Row } from '@/seatmap/components/row'
 import { useSeatMapZoom } from '@/seatmap/hooks/use-seatmap-zoom'
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
+import { ROW_GAP } from './lib/constants'
 
 // Create 50 seats in a row
-const seats = Array.from({ length: 100 }, (_, i) => i + 1)
-const rows = Array.from({ length: 100 }, (_, i) => i + 1)
+const tenList = Array.from({ length: 10 }, (_, i) => i + 1)
 
-export const CreateSeatMap = memo(() => {
+const Block = memo(({ y, x }: { x: number; y: number }) => {
+  return tenList.map((row, i) => (
+    <Row key={row} x={x} y={y + i * ROW_GAP} index={i} seatIds={tenList} />
+  ))
+})
+Block.displayName = 'Block'
+const RowBlocks = memo(({ y }: { y: number }) => {
+  return tenList.map((block, i) => <Block key={block} x={i * 240} y={y} />)
+})
+RowBlocks.displayName = 'RowBlocks'
+
+export const CreateSeatMap = memo(({ thousands }: { thousands?: number }) => {
   const { scale, position, handleWheel } = useSeatMapZoom()
+  const blockList = useMemo(() => {
+    let _value = 5
+    let _thoudsands = thousands ? Number(thousands) : _value
+    if (_thoudsands > 10 || _thoudsands < 1 || !_thoudsands) {
+      _thoudsands = _value
+    }
+    return Array.from({ length: _thoudsands }, (_, i) => i + 1)
+  }, [thousands])
 
   return (
     <Stage
@@ -24,8 +43,8 @@ export const CreateSeatMap = memo(() => {
       draggable
     >
       <Layer>
-        {rows.map((row, i) => (
-          <Row key={row} x={0} y={i * 30} index={i} seatIds={seats} />
+        {blockList.map((block, i) => (
+          <RowBlocks key={block} y={i * 240} />
         ))}
       </Layer>
     </Stage>
