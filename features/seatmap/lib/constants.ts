@@ -1,9 +1,9 @@
 // Manual constants
-export const SEAT_SIZE = 20
+export const SEAT_SIZE = 10
 
 // Dependent on seat size
 export const SEAT_STROKE_RATIO = 0.06
-export const ROW_GAP_RATIO = 1.5
+export const ROW_GAP_RATIO = 2
 
 // Auto-generated constants
 export const SEAT_STROKE_WIDTH = SEAT_SIZE * SEAT_STROKE_RATIO

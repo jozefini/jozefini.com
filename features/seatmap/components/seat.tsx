@@ -1,7 +1,7 @@
 'use client'
 
-import { Circle, Text, Group } from 'react-konva'
-import { SEAT_INNER_SIZE, SEAT_STROKE_WIDTH } from '@/seatmap/lib/constants'
+import { Circle, Group } from 'react-konva' // Text,
+import { SEAT_INNER_SIZE } from '@/seatmap/lib/constants' // SEAT_STROKE_WIDTH
 import { memo } from 'react'
 
 type SeatProps = {
@@ -11,11 +11,11 @@ type SeatProps = {
 }
 
 export const Seat = memo(({ x, y, number }: SeatProps) => {
-  const seatText = number.toString()
-  const halfStroke = SEAT_STROKE_WIDTH / 4
-  const fontSize = SEAT_INNER_SIZE / 2
-  const numOffsetX = (fontSize * seatText.length) / 4 + halfStroke
-  const numOffsetY = fontSize / 2 - halfStroke
+  // const seatText = number.toString()
+  // const halfStroke = SEAT_STROKE_WIDTH / 4
+  // const fontSize = SEAT_INNER_SIZE / 2
+  // const numOffsetX = (fontSize * seatText.length) / 4 + halfStroke
+  // const numOffsetY = fontSize / 2 - halfStroke
   const radius = SEAT_INNER_SIZE / 2
 
   return (
@@ -25,10 +25,10 @@ export const Seat = memo(({ x, y, number }: SeatProps) => {
         y={y}
         radius={radius}
         fill="gray"
-        stroke="black"
-        strokeWidth={SEAT_STROKE_WIDTH}
+        // stroke="black"
+        // strokeWidth={SEAT_STROKE_WIDTH}
       />
-      <Text
+      {/* <Text
         x={x}
         y={y}
         text={seatText}
@@ -38,7 +38,7 @@ export const Seat = memo(({ x, y, number }: SeatProps) => {
         verticalAlign="middle"
         offsetX={numOffsetX}
         offsetY={numOffsetY}
-      />
+      /> */}
     </Group>
   )
 })

@@ -27,7 +27,9 @@ export function useSeatMapZoom(props?: ZoomProps) {
         y: (pointerPosition.y - stage.y()) / oldScale,
       }
 
-      let newScale = e.evt.deltaY > 0 ? oldScale * 1.1 : oldScale / 1.1
+      const zoomFactor = 1.2
+      let newScale =
+        e.evt.deltaY > 0 ? oldScale * zoomFactor : oldScale / zoomFactor
       if (newScale > maxScale) {
         newScale = maxScale
       } else if (newScale < minScale) {
