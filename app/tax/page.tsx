@@ -167,7 +167,7 @@ export default function Page() {
                 <div className={css.detail}>
                   <label className={css.label}>New Tax</label>
                   <span className={css.value}>
-                    {valueAsPrice(tax - taxDifference)}
+                    {valueAsPrice(taxWithExpenses)}
                   </span>
                 </div>
               </div>
