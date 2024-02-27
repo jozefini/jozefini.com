@@ -10,5 +10,10 @@ export const getPercentInValue = (value: number, percentage: number) => {
 }
 
 export const valueAsPrice = (value: number, currency: string = '€') => {
-  return `${value.toFixed(0)} ${currency}`
+  const newVal = Number(value.toFixed(0))
+  return commaNumber(newVal) + ` ${currency}`
+}
+
+export const commaNumber = (value: number) => {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
